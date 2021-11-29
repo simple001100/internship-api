@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { getPhones } from "../../controllers/productsControllers.js";
-import { getLaptops } from "../../controllers/productsControllers.js";
-import { getSsds } from "../../controllers/productsControllers.js";
-import { getProcessors } from "../../controllers/productsControllers.js";
-import { getVideocards } from "../../controllers/productsControllers.js";
-import { getWatches } from "../../controllers/productsControllers.js";
+import { getPhones } from "../controllers/productsControllers.js";
+import { getSsds } from "../controllers/productsControllers.js";
+import { getProcessors } from "../controllers/productsControllers.js";
+import { getVideocards } from "../controllers/productsControllers.js";
+import { getWatches } from "../controllers/productsControllers.js";
+import { getLaptops } from "../controllers/productsControllers.js";
 
 const router = new Router();
 
