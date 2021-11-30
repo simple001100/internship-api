@@ -8,6 +8,7 @@ import {
   ProductPhoto,
 } from "./src/models/models.js";
 import cors from "cors";
+import { errorHandler } from "./src/middleware/ErrorHandlingMiddleware.js";
 
 const PORT = 3000;
 
@@ -15,15 +16,15 @@ const app = express();
 app.use(cors());
 app.use("/api", router);
 
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "working!!!" });
-});
+app.use(errorHandler);
 
-app.listen(PORT, () => console.log("SERVER START ON PORT " + PORT));
+const start = async () => {
+  try {
+    await sequelize.authenticate();
+    app.listen(PORT, () => console.log("SERVER START ON PORT " + PORT));
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-try {
-  await sequelize.authenticate();
-  console.log("Connection has been established successfully.");
-} catch (error) {
-  console.error("Unable to connect to the database:", error);
-}
+start();
