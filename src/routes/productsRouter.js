@@ -8,7 +8,7 @@ import { getLaptops } from "../controllers/productsControllers.js";
 
 const router = new Router();
 
-router.get("/phones", getPhones);
+router.get("/phone", getPhones);
 router.get("/laptops", getLaptops);
 router.get("/ssds", getSsds);
 router.get("/processors", getProcessors);
