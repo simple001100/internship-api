@@ -1,12 +1,6 @@
 import express from "express";
 import router from "./src/routes/index.js";
 import { sequelize } from "./db.js";
-import {
-  User,
-  CartProduct,
-  Product,
-  ProductPhoto,
-} from "./src/models/models.js";
 import cors from "cors";
 import { errorHandler } from "./src/middleware/ErrorHandlingMiddleware.js";
 

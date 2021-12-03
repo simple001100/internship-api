@@ -1,5 +1,5 @@
 import ApiError from "../error/apiError.js";
-import { Product } from "../models/models.js";
+import Product from "../models/modelProduct.js";
 
 export const getPhones = async (req, res, next) => {
   let { page } = req.query;
@@ -10,6 +10,7 @@ export const getPhones = async (req, res, next) => {
   if (page) {
     devices = await Product.findAll().catch(e => console.log(e));
   }
+  console.log(devices)
   return res.json(devices);
 };
 
