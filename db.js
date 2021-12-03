@@ -1,18 +1,28 @@
 import { Sequelize } from "sequelize";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const name = process.env.NAME;
+const user = process.env.USER;
+const pass = process.env.PASS;
+const host = process.env.HOST;
+const dialect = process.env.DIALECT;
+const port = process.env.PORT;
 
 export const sequelize = new Sequelize(
-  "d7bk9nn2da195",
-  "hddcztlhlhoxuw",
-  "4b8ce5033cf19aa8cb39e070220f75441b2393841e8639e9059e51c45811c4c8",
+  name,
+  user,
+  pass,
   {
-    dialect: "postgres",
-    host: "ec2-34-250-19-18.eu-west-1.compute.amazonaws.com",
-    port: 5432,
+    dialect,
+    host,
+    port,
     dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false
-        }
-     },
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    },
   }
 );
