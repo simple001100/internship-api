@@ -1,25 +1,24 @@
 import ApiError from "../error/apiError.js";
 import Product from "../models/modelProduct.js";
 
-export const getPhones = async (req, res, next) => {
-  let { page } = req.query;
+export const getProducts = async (req, res, next) => {
+  let { type, page } = req.query;
   page = page || 1;
   let limit = 10;
   let offset = page * limit - limit;
   let devices;
-  if (page) {
-    devices = await Product.findAll().catch(e => console.log(e));
+  if (type && page) {
+    devices = await Product.findAll({ where: { type }, limit, offset });
   }
-  console.log(devices)
   return res.json(devices);
 };
 
-export const getLaptops = async (req, res) => { };
-
-export const getSsds = async (req, res) => { };
-
-export const getProcessors = async (req, res) => { };
-
-export const getVideocards = async (req, res) => { };
-
-export const getWatches = async (req, res) => { };
+export const getProductById = async (req, res, next) => {
+  const { id } = req.params
+  let device = await Product.findOne(
+    {
+      where: { id },
+    },
+  )
+  return res.json(device);
+};
