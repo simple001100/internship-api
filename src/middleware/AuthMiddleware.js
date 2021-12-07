@@ -1,6 +1,5 @@
-import ApiError from "../error/apiError";
-import { validateAccessToken } from "../service/tokenService";
-
+import ApiError from "../error/apiError.js";
+import { validateAccessToken } from "../service/tokenService.js";
 
 export const authHandler = (req, res, next) => {
    try {
