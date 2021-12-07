@@ -1,7 +1,12 @@
-import ApiError from "../error/apiError.js";
-import User from "../models/modelUser.js";
+import { Login } from "../service/userService.js";
 
-export const getUsers = async (req, res, next) => {
-   let users = await User.findByPk(1);
-   return res.json(users);
-};
+export const login = async (req, res, next) => {
+   try {
+      const { login, password } = req.body;
+      const userData = await Login(login, password);
+      res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+      return res.json(userData);
+   } catch (e) {
+      next(e);
+   }
+}
