@@ -14,9 +14,9 @@ export const generateTokens = (payload) => {
 }
 
 export const saveToken = async (userId, refreshToken) => {
-   const tokenData = await Token.findOne({ user: userId });
+   const tokenData = await Token.findOne({ where: { user: userId } });
    if (tokenData) {
-      tokenData.refreshToken = refreshToken;
+      tokenData.refresh_token = refreshToken;
       return tokenData.save();
    }
    const token = await Token.create({ user: userId, refreshToken });
