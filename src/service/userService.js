@@ -1,6 +1,7 @@
 import UserDto from "../dtos/userDtos.js";
 import ApiError from "../error/apiError.js";
 import User from "../models/modelUser.js"
+import bcrypt from 'bcrypt';
 import { findToken, generateTokens, removeToken, saveToken, validateRefreshToken } from "./tokenService.js";
 
 export const Login = async (login, password) => {
@@ -8,9 +9,10 @@ export const Login = async (login, password) => {
    if (!user) {
       throw ApiError.badRequests("User not found");
    }
-   const isPassEquals = password === user.password; //await bcrypt.compare(password, user.password);
+   const isPassEquals = await bcrypt.compare(password, user.password);
    if (!isPassEquals) {
       throw ApiError.badRequests("Incorrect password");
+
    }
    const userDto = new UserDto(user);
    const tokens = generateTokens({ ...userDto });
