@@ -3,12 +3,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const name = process.env.NAME;
-const user = process.env.USER;
-const pass = process.env.PASS;
-const host = process.env.HOST;
-const dialect = process.env.DIALECT;
-const port = process.env.PORT;
+const name = process.env.DB_NAME;
+const user = process.env.DB_USERNAME;
+const pass = process.env.DB_PASSWORD;
+const host = process.env.DB_HOST;
+const dialect = process.env.DB_DIALECT;
+const port = process.env.DB_PORT;
 
 export const sequelize = new Sequelize(
   name,
