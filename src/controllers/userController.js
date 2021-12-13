@@ -1,6 +1,6 @@
 import userService from "../service/userService.js";
 
-export const login = async (req, res, next) => {
+const login = async (req, res, next) => {
    try {
       const { login, password } = req.body;
       const userData = await userService.Login(login, password);
@@ -11,7 +11,7 @@ export const login = async (req, res, next) => {
    }
 }
 
-export const logout = async (req, res, next) => {
+const logout = async (req, res, next) => {
    try {
       const { refreshToken } = req.cookies;
       const token = await userService.Logout(refreshToken);
@@ -22,7 +22,7 @@ export const logout = async (req, res, next) => {
    }
 }
 
-export const refresh = async (req, res, next) => {
+const refresh = async (req, res, next) => {
    try {
       const { refreshToken } = req.cookies;
       const userData = await userService.Refresh(refreshToken);
@@ -30,3 +30,5 @@ export const refresh = async (req, res, next) => {
       return res.json(userData);
    } catch (e) { next(e); }
 }
+
+export default { login, logout, refresh };

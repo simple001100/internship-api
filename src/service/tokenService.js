@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const generateTokens = (payload) => {
+const generateTokens = (payload) => {
    const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: "30m" });
    const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: "30d" });
    return {
@@ -13,7 +13,7 @@ export const generateTokens = (payload) => {
    }
 }
 
-export const validateAccessToken = (token) => {
+const validateAccessToken = (token) => {
    try {
       return jwt.verify(token, process.env.JWT_ACCESS_SECRET);
    } catch (e) {
@@ -21,7 +21,7 @@ export const validateAccessToken = (token) => {
    }
 }
 
-export const validateRefreshToken = (token) => {
+const validateRefreshToken = (token) => {
    try {
       const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
       return userData;
@@ -30,24 +30,30 @@ export const validateRefreshToken = (token) => {
    }
 }
 
-export const saveToken = async (userId, refreshToken) => {
-   const tokenData = await Token.findOne({ where: { user: userId } });
-   if (tokenData) {
-      tokenData.refresh_token = refreshToken;
-      return tokenData.save();
+const saveToken = async (userId, refreshToken) => {
+   try {
 
+      const tokenData = await Token.findOne({ where: { userId } });
+      if (tokenData) {
+         tokenData.refreshToken = refreshToken;
+         return tokenData.save();
+      }
+      const token = await Token.create({ userId, refreshToken });
+      console.log(token)
+      return token;
+   } catch (e) {
+      console.log(e)
    }
-
-   const token = await Token.create({ user: userId, refresh_token: refreshToken });
-   return token;
 }
 
-export const removeToken = async (refreshToken) => {
-   const tokenModel = await Token.destroy({ where: { refresh_token: refreshToken } });
+const removeToken = async (refreshToken) => {
+   const tokenModel = await Token.destroy({ where: { refreshToken } });
    return tokenModel;
 }
 
-export const findToken = async (refreshToken) => {
-   const tokenModel = await Token.findOne({ where: { refresh_token: refreshToken } });
+const findToken = async (refreshToken) => {
+   const tokenModel = await Token.findOne({ where: { refreshToken } });
    return tokenModel;
 }
+
+export default { generateTokens, validateAccessToken, validateRefreshToken, saveToken, removeToken, findToken };

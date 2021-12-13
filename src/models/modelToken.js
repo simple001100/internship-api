@@ -2,12 +2,13 @@ import { sequelize } from "../../db.js";
 import DataTypes from "sequelize";
 
 const Token = sequelize.define("tokens", {
-   user: {
+   id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
    },
-   refresh_token: {
+   refreshToken: {
       type: DataTypes.STRING,
    },
    createdAt: { type: DataTypes.DATE },

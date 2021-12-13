@@ -4,7 +4,7 @@ import User from "../models/modelUser.js"
 import bcrypt from 'bcrypt';
 import tokenService from "./tokenService.js";
 
-export const Login = async (login, password) => {
+const Login = async (login, password) => {
    const user = await User.findOne({ where: { login } });
    if (!user) {
       throw ApiError.badRequests("User not found");
@@ -12,7 +12,6 @@ export const Login = async (login, password) => {
    const isPassEquals = await bcrypt.compare(password, user.password);
    if (!isPassEquals) {
       throw ApiError.badRequests("Incorrect password");
-
    }
    const userDto = new UserDto(user);
    const tokens = tokenService.generateTokens({ ...userDto });
@@ -21,12 +20,12 @@ export const Login = async (login, password) => {
    return { ...tokens, user: userDto }
 }
 
-export const Logout = async (refreshToken) => {
+const Logout = async (refreshToken) => {
    const token = await tokenService.removeToken(refreshToken);
    return token;
 }
 
-export const Refresh = async (refreshToken) => {
+const Refresh = async (refreshToken) => {
    if (!refreshToken) {
       throw ApiError.unauthorizedError();
    }
@@ -42,3 +41,5 @@ export const Refresh = async (refreshToken) => {
 
    return { ...tokens, user: userDto }
 }
+
+export default { Login, Logout, Refresh };
