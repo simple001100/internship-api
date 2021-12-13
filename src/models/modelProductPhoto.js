@@ -8,7 +8,7 @@ const ProductPhoto = sequelize.define("product_photos", {
       autoIncrement: true,
    },
    photo: { type: DataTypes.BLOB },
-   product_id: { type: DataTypes.INTEGER },
+   productId: { type: DataTypes.INTEGER, field: 'product_id' },
    createdAt: { type: DataTypes.DATE },
    updatedAt: { type: DataTypes.DATE },
 });

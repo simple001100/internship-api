@@ -15,7 +15,7 @@ const Product = sequelize.define("products", {
    installment: { type: DataTypes.INTEGER },
    rating: { type: DataTypes.INTEGER },
    description: { type: DataTypes.STRING },
-   short_description: { type: DataTypes.STRING },
+   shortDescription: { type: DataTypes.STRING, field: 'short_description' },
    processor: { type: DataTypes.STRING },
    video_card: { type: DataTypes.STRING },
    os: { type: DataTypes.STRING },

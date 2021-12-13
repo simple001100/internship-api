@@ -15,8 +15,7 @@ export const generateTokens = (payload) => {
 
 export const validateAccessToken = (token) => {
    try {
-      const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-      return userData;
+      return jwt.verify(token, process.env.JWT_ACCESS_SECRET);
    } catch (e) {
       return null;
    }

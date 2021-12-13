@@ -1,5 +1,5 @@
 import ApiError from "../error/apiError.js";
-import { validateAccessToken } from "../service/tokenService.js";
+import tokenService from "../service/tokenService.js";
 
 export const authHandler = (req, res, next) => {
    try {
@@ -13,7 +13,7 @@ export const authHandler = (req, res, next) => {
          return next(ApiError.unauthorizedError());
       }
 
-      const userData = validateAccessToken(accessToken);
+      const userData = tokenService.validateAccessToken(accessToken);
       if (!userData) {
          return next(ApiError.unauthorizedError());
       }

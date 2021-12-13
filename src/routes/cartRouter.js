@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getCart } from "../controllers/cartController.js";
+import cartController from "../controllers/cartController.js";
 import { authHandler } from "../middleware/authMiddleware.js";
 
 const router = new Router();
 
-router.get("/", authHandler, getCart);
+router.get("/", authHandler, cartController.getCart);
 
 export default router;
