@@ -10,5 +10,5 @@ Product.belongsToMany(User, { through: CartProduct });
 Product.hasMany(ProductPhoto);
 ProductPhoto.belongsTo(Product);
 
+Token.belongsTo(User, { foreignKey: 'userId' });
 User.hasOne(Token);
-Token.belongsTo(User);

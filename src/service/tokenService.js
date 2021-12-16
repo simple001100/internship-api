@@ -32,14 +32,14 @@ const validateRefreshToken = (token) => {
 
 const saveToken = async (userId, refreshToken) => {
    try {
-
       const tokenData = await Token.findOne({ where: { userId } });
+      console.log(tokenData);
       if (tokenData) {
          tokenData.refreshToken = refreshToken;
          return tokenData.save();
       }
       const token = await Token.create({ userId, refreshToken });
-      console.log(token)
+      console.log(Token);
       return token;
    } catch (e) {
       console.log(e)

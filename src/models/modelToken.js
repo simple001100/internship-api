@@ -11,6 +11,13 @@ const Token = sequelize.define("tokens", {
    refreshToken: {
       type: DataTypes.STRING,
    },
+   userId: {
+      type: DataTypes.INTEGER,
+      references: {
+         model: "users",
+         key: "id"
+      }
+   },
    createdAt: { type: DataTypes.DATE },
    updatedAt: { type: DataTypes.DATE },
 });

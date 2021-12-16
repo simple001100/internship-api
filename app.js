@@ -5,12 +5,15 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./src/middleware/ErrorHandlingMiddleware.js";
 
-const PORT = 3000;
+const PORT = 8000;
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: process.env.CLIENT_URL
+}));
 app.use("/api", router);
 
 app.use(errorHandler);
