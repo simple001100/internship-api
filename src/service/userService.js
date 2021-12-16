@@ -16,7 +16,7 @@ const Login = async (login, password) => {
    const userDto = new UserDto(user);
    const tokens = tokenService.generateTokens({ ...userDto });
    await tokenService.saveToken(userDto.id, tokens.refreshToken);
-   return { ...tokens, user: {...userDto, firstName: user.firstName, lastName: user.lastName } }
+   return { ...tokens, user: { ...userDto, firstName: user.firstName, lastName: user.lastName } }
 }
 
 const Logout = async (refreshToken) => {
@@ -38,7 +38,7 @@ const Refresh = async (refreshToken) => {
    const tokens = tokenService.generateTokens({ ...userDto });
    await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-   return { ...tokens, user: userDto }
+   return { ...tokens, user: { ...userDto, firstName: user.firstName, lastName: user.lastName } }
 }
 
 export default { Login, Logout, Refresh };
