@@ -4,8 +4,8 @@ import CartProduct from './modelCartProduct.js';
 import ProductPhoto from './modelProductPhoto.js';
 import Token from './modelToken.js'
 
-User.belongsToMany(Product, { through: CartProduct });
-Product.belongsToMany(User, { through: CartProduct });
+User.belongsToMany(Product, { through: CartProduct, foreignKey: 'cart_id' });
+Product.belongsToMany(User, { through: CartProduct, foreignKey: 'product_id' });
 
 Product.hasMany(ProductPhoto);
 ProductPhoto.belongsTo(Product);
