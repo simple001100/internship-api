@@ -37,7 +37,6 @@ const saveToken = async (userId, refreshToken) => {
          return tokenData.save();
       }
       const token = await Token.create({ userId, refreshToken });
-      console.log(Token);
       return token;
    } catch (e) {
       console.log(e)
