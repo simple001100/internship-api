@@ -23,6 +23,7 @@ const Product = sequelize.define("products", {
    memory: { type: DataTypes.INTEGER },
    ram: { type: DataTypes.INTEGER },
    color: { type: DataTypes.STRING },
+   photo: { type: DataTypes.BLOB },
    createdAt: { type: DataTypes.DATE },
    updatedAt: { type: DataTypes.DATE },
 });

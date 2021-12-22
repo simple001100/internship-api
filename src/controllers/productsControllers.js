@@ -1,4 +1,3 @@
-import ApiError from "../error/apiError.js";
 import Product from "../models/modelProduct.js";
 
 const getProducts = async (req, res, next) => {
@@ -19,7 +18,7 @@ const getProductById = async (req, res, next) => {
     {
       where: { id },
     },
-  )
+  );
   return res.json(device);
 };
 
