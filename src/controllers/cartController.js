@@ -1,11 +1,16 @@
 import cartProduct from "../models/modelCartProduct.js";
+import Product from "../models/modelProduct.js";
 import cartService from "../service/cartService.js";
+import productService from "../service/productService.js";
 
 const getCart = async (req, res, next) => {
    try {
       const cartId = await cartService.getCartId(req);
       const cart = await cartProduct.findAll({ where: { cartId } });
-      return res.json(cart);
+      const cartProducts = await Promise.all(cart.map(async (el) => {
+         return await productService.getProductById(el.productId);
+      }));
+      return res.json(cartProducts);
    } catch (e) {
       next(e);
    }
@@ -36,7 +41,7 @@ const updateCart = async (req, res, next) => {
    try {
       const { id, quantity } = req.query;
       const cart = await cartProduct.findOne({ where: { productId: id } });
-      cart.set({quantity });
+      cart.set({ quantity });
       const updateProduct = await cart.save();
       return res.json(updateProduct);
    } catch (e) {

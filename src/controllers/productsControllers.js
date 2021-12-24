@@ -1,4 +1,5 @@
 import Product from "../models/modelProduct.js";
+import productService from "../service/productService.js";
 
 const getProducts = async (req, res, next) => {
   let { type, page } = req.query;
@@ -14,11 +15,7 @@ const getProducts = async (req, res, next) => {
 
 const getProductById = async (req, res, next) => {
   const { id } = req.params
-  let device = await Product.findOne(
-    {
-      where: { id },
-    },
-  );
+  let device = await productService.getProductById(id);
   return res.json(device);
 };
 
