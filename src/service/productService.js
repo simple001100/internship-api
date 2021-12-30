@@ -1,7 +1,7 @@
 import Product from "../models/modelProduct.js"
 
 const getProductById = async (id) => {
-   let device = await Product.findOne(
+   const device = await Product.findOne(
       {
          where: { id },
       },
@@ -9,4 +9,9 @@ const getProductById = async (id) => {
    return device;
 };
 
-export default { getProductById };
+const getProductsByType = async (type, limit, offset) => {
+   const devices = await Product.findAll({ where: { type }, limit, offset });
+   return devices;
+}
+
+export default { getProductById, getProductsByType };

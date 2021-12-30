@@ -8,8 +8,24 @@ const getProducts = async (req, res, next) => {
   let offset = page * limit - limit;
   let devices;
   if (type && page) {
-    devices = await Product.findAll({ where: { type }, limit, offset });
+    devices = await productService.getProductsByType(type, limit, offset);
   }
+  return res.json(devices);
+};
+
+const getAdvertising = async (req, res, next) => {
+  const types = ["phone", "laptop", "watch", "ssd", "processor", "videocard"];
+  let devices = [];
+
+  const products = await Promise.all(types.map(el => productService.getProductsByType(el)));
+  const advertising = products.map(el => {
+    let maxRating = el.map(p => p.dataValues.rating);
+    let max = Math.max(...maxRating);
+    el.map(p => {
+      if (p.dataValues.rating === max) devices.push(p);
+    })
+  }
+  );
   return res.json(devices);
 };
 
@@ -19,4 +35,4 @@ const getProductById = async (req, res, next) => {
   return res.json(device);
 };
 
-export default { getProducts, getProductById };
+export default { getProducts, getProductById, getAdvertising };
