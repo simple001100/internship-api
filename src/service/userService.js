@@ -4,6 +4,20 @@ import User from "../models/modelUser.js"
 import bcrypt from 'bcrypt';
 import tokenService from "./tokenService.js";
 
+const Registration = async (login, password, firstName, lastName) => {
+   if (!login || !password) {
+      throw new Error("Incorrect login or password");
+   }
+   const candidate = await User.findOne({ where: { login } });
+   if (candidate) {
+      throw new Error("User already exists");
+   }
+   const hashPassword = await bcrypt.hash(password, 5);
+   const user = await User.create({ login, password: hashPassword, firstName, lastName });
+   const token = tokenService.generateTokens({ id: user.id, login });
+   return token;
+}
+
 const Login = async (login, password) => {
    const user = await User.findOne({ where: { login } });
    if (!user) {
@@ -25,7 +39,7 @@ const Logout = async (refreshToken) => {
 }
 
 const Refresh = async (refreshToken) => {
-   
+
    if (!refreshToken) {
       throw ApiError.unauthorizedError();
    }
@@ -42,4 +56,4 @@ const Refresh = async (refreshToken) => {
    return { ...tokens, user: { ...userDto, firstName: user.firstName, lastName: user.lastName, avatar: user.avatar } }
 }
 
-export default { Login, Logout, Refresh };
+export default { Login, Logout, Refresh, Registration };
