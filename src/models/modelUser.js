@@ -11,7 +11,7 @@ const User = sequelize.define("users", {
   password: { type: DataTypes.STRING },
   firstName: { type: DataTypes.STRING },
   lastName: { type: DataTypes.STRING },
-  avatar: { type: DataTypes.BLOB },
+  avatar: { type: DataTypes.STRING },
   createdAt: { type: DataTypes.DATE },
   updatedAt: { type: DataTypes.DATE },
 });
