@@ -1,4 +1,5 @@
-import Product from "../models/modelProduct.js"
+import Product from "../models/modelProduct.js";
+import { Buffer } from 'buffer';
 
 const getProductById = async (id) => {
    const device = await Product.findOne(
@@ -6,6 +7,9 @@ const getProductById = async (id) => {
          where: { id },
       },
    );
+   let data = device.dataValues.photo;
+   let base64data = data.toString('base64');
+   device.dataValues.photo = base64data;
    return device;
 };
 
